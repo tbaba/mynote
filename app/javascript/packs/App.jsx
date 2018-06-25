@@ -10,10 +10,7 @@ export default class App extends React.Component {
 
     this.state = {
       noteOpened: false,
-      notes: [
-        { id: 1, title: 'のーとそのいち' },
-        { id: 2, title: 'ノートソノニ' },
-      ],
+      notes: props.notes,
     }
   }
 

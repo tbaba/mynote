@@ -13,9 +13,7 @@ import App from "./App";
 
 document.addEventListener("DOMContentLoaded", () => {
   const div = document.getElementById("app");
+  const props = JSON.parse(div.dataset.props);
 
-  ReactDOM.render(
-    <App />,
-    div
-  );
+  ReactDOM.render(<App notes={props} />, div);
 });
