@@ -14,8 +14,5 @@ import App from "./App";
 document.addEventListener("DOMContentLoaded", () => {
   const div = document.getElementById("app");
 
-  ReactDOM.render(
-    <App />,
-    div
-  );
+  ReactDOM.render(<App />, div);
 });
