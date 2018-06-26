@@ -10,16 +10,26 @@ export default class App extends React.Component {
 
     this.state = {
       noteOpened: false,
-      notes: props.notes,
+      notes: [],
+      currentNote: {},
     }
   }
 
-  componentWillMount() {
-    this.setState({ currentNote: this.state.notes[0] });
+  componentDidMount() {
+    fetch('/notes.json')
+      .then(response => {
+        return response.json();
+      }).then(json => {
+        this.setState({ notes: json });
+        this.setState({ currentNote: this.state.notes[0] });
+      }).catch(error => {
+        console.log(error);
+      });
   }
   
   render() {
     const { notes, currentNote } = this.state;
+
     return (
       <div className="container">
         <GlobalHeader />
