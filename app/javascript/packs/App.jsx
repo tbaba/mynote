@@ -11,8 +11,10 @@ export default class App extends React.Component {
     this.state = {
       noteOpened: false,
       notes: [],
-      currentNote: {},
     }
+
+    this.handleTitleChange = this.handleTitleChange.bind(this);
+    this.handleBodyChange = this.handleBodyChange.bind(this);
   }
 
   componentDidMount() {
@@ -21,20 +23,33 @@ export default class App extends React.Component {
         return response.json();
       }).then(json => {
         this.setState({ notes: json });
-        this.setState({ currentNote: this.state.notes[0] });
+        this.setState({ currentNote: this.state.notes[0], noteOpened: true });
       }).catch(error => {
+        this.setState({ noteOpened: false });
         console.log(error);
       });
   }
+
+  handleTitleChange(title, noteId) {
+    this.state.notes.filter(note => note.id === noteId).forEach(note => {
+      note.title = title;
+    });
+  }
+
+  handleBodyChange(body, noteId) {
+    this.state.notes.filter(note => note.id === noteId).forEach(note => {
+      note.body = body;
+    });
+  }
   
   render() {
-    const { notes, currentNote } = this.state;
+    const { notes, currentNote, noteOpened } = this.state;
 
     return (
       <div className="container">
         <GlobalHeader />
         <NoteList notes={notes} />
-        <NoteDetail currentNote={currentNote} />
+        {noteOpened && <NoteDetail currentNote={currentNote} handleTitleChange={this.handleTitleChange} handleBodyChange={this.handleBodyChange} />}
       </div>
     );
   }
