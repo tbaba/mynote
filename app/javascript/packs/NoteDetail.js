@@ -10,16 +10,12 @@ export default class NoteDetail extends React.Component {
       body: this.props.currentNote.body,
     };
 
-    this.handleTitleChange = this.handleTitleChange.bind(this);
-    this.handleBodyChange  = this.handleBodyChange.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
-  handleTitleChange(ev) {
-    this.props.handleTitleChange(ev.target.value, this.props.currentNote.id);
-  }
-
-  handleBodyChange(ev) {
-    this.props.handleBodyChange(ev.target.value, this.props.currentNote.id);
+  handleChange(ev) {
+    const { target: { name, value } } = ev;
+    this.props.handlechange(name, value, this.props.currentNote.id);
   }
 
   render() {
@@ -34,14 +30,14 @@ export default class NoteDetail extends React.Component {
                 type="text"
                 value={this.state.title}
                 className={`${key}__title`}
-                onChange={this.handleTitleChange}
+                onChange={this.handleChange}
               />
             </h2>
           </header>
           <div className="note-detail-body">
             <textarea
               className={`${key}__body`}
-              onChange={this.handleBodyChange}
+              onChange={this.handleChange}
               value={this.state.body}
             />
           </div>

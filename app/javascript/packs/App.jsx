@@ -30,6 +30,12 @@ export default class App extends React.Component {
       });
   }
 
+  handleChange(name, value, notId) {
+    this.state.notes.filter(note => note.id === noteId).forEach(note => {
+      note.title = title;
+    });
+  }
+
   handleTitleChange(title, noteId) {
     this.state.notes.filter(note => note.id === noteId).forEach(note => {
       note.title = title;
