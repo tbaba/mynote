@@ -8,8 +8,8 @@ const Note = props => {
   const key = `note-${note.id}`;
 
   return (
-    <ListItem button component="a">
-      <ListItemText primary={note.title} />
+    <ListItem button component="a" onClick={e => props.handleClick(e, note.id)}>
+      <ListItemText primary={note.title} className="note-summary" />
     </ListItem>
   );
 };

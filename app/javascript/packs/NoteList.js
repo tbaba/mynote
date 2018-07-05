@@ -6,13 +6,13 @@ import Note from "./NoteList/Note";
 
 export default class NoteList extends React.Component {
   render() {
-    const { notes } = this.props;
+    const { notes, handleClick } = this.props;
     return (
       <List component="nav">
         {
           notes.map(note => {
             const key = `note-${note.id}`;
-            return <Note key={key} note={note} />;
+            return <Note key={key} note={note} handleClick={handleClick} />;
           })
         }
       </List>
