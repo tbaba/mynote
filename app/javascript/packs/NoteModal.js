@@ -1,3 +1,4 @@
+import "whatwg-fetch";
 import React from "react";
 import PropTypes from "prop-types";
 import Typography from "@material-ui/core/Typography";
@@ -43,8 +44,26 @@ class ModalContent extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     const { title, body } = this.state;
+    const csrfToken = document.getElementsByName('csrf-token')[0].content;
 
-    console.log(`submitted! { title: ${title}, body: ${body} }`);
+    fetch('/notes.json', {
+      method: 'POST',
+      'credentials': 'same-origin',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRF-Token': csrfToken,
+      },
+      body: JSON.stringify({
+        title: title,
+        body: body,
+      }),
+    }).then(response => {
+      return response.json();
+    }).then(json => {
+      this.props.addNewNoteToList(e, json.id);
+    }).catch(error => {
+      console.log(error);
+    });
   }
 
   handleTitleChange(e) {

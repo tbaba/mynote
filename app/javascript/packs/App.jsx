@@ -24,6 +24,7 @@ export default class App extends React.Component {
     this.handleCurrentNoteChanged = this.handleCurrentNoteChanged.bind(this);
     this.handleModalOpen  = this.handleModalOpen.bind(this);
     this.handleModalClose = this.handleModalClose.bind(this);
+    this.addNewNoteToList = this.addNewNoteToList.bind(this);
   }
 
   handleModalOpen() {
@@ -45,7 +46,13 @@ export default class App extends React.Component {
     this.setState({ currentNote: currentNote[0] });
   }
 
-  componentDidMount() {
+  addNewNoteToList(event, noteId) {
+    this.getNoteList();
+    this.handleCurrentNoteChanged(event, noteId);
+    this.handleModalClose();
+  }
+
+  getNoteList() {
     fetch('/notes.json')
       .then(response => {
         return response.json();
@@ -55,6 +62,10 @@ export default class App extends React.Component {
       }).catch(error => {
         console.log(error);
       });
+  }
+
+  async componentDidMount() {
+    await this.getNoteList();
   }
   
   render() {
@@ -66,9 +77,11 @@ export default class App extends React.Component {
         <Grid container spacing={24}>
           <Grid item xs={3} sm={2}>
             <NoteList notes={notes} handleClick={this.handleCurrentNoteChanged} />
-            <Button onClick={this.handleModalOpen}>
-              New Note
-            </Button>
+            <Grid item xs={12}>
+              <Button variant="contained" size="large" onClick={this.handleModalOpen}>
+                New Note
+              </Button>
+            </Grid>
           </Grid>
           <Grid item xs={9} sm={10}>
             <NoteDetail currentNote={currentNote} />
@@ -77,6 +90,7 @@ export default class App extends React.Component {
         <NoteModal
           open={newNoteModalOpened}
           onClose={this.handleModalClose}
+          addNewNoteToList={this.addNewNoteToList}
         />
       </div>
     );
