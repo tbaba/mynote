@@ -25,6 +25,7 @@ export default class App extends React.Component {
     this.handleModalOpen  = this.handleModalOpen.bind(this);
     this.handleModalClose = this.handleModalClose.bind(this);
     this.addNewNoteToList = this.addNewNoteToList.bind(this);
+    this.getNoteList = this.getNoteList.bind(this);
   }
 
   handleModalOpen() {
@@ -50,6 +51,7 @@ export default class App extends React.Component {
     this.getNoteList();
     this.handleCurrentNoteChanged(event, noteId);
     this.handleModalClose();
+    return noteId;
   }
 
   getNoteList() {
