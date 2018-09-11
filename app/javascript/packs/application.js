@@ -9,10 +9,10 @@
 
 import React from "react";
 import ReactDOM from "react-dom";
-import App from "./App";
+import AppWithStyle from "./App";
 
 document.addEventListener("DOMContentLoaded", () => {
   const div = document.getElementById("app");
 
-  ReactDOM.render(<App />, div);
+  ReactDOM.render(<AppWithStyle />, div);
 });
